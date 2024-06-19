@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/dashboardLayout.html}">
+
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="container product-detail-container" layout:fragment="content">
+      <div class="row">
+        <div class="col-md-6 product-image">
+            <img th:src="@{${product.image}}" alt="Product Image" class="img-thumbnail" />
+        </div>
+        <div class="col-md-6 product-info">
+            <h2 th:text="${product.name}">Product Name</h2>
+            <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <p id="quantity" class="form-control-static" th:text="${product.quantity}">0</p>
+            </div>
+            <div class="form-group">
+                <label for="unitPrice">Unit Price</label>
+                <p id="unitPrice" class="form-control-static">
+                    <span th:text="'₫ ' + ${product.unitPrice}"></span>
+                </p>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <p id="description" class="form-control-static" th:text="${product.description}">Description</p>
+            </div>
+            <div class="form-group">
+                <label for="discount">Discount</label>
+                <p id="discount" class="form-control-static">
+                    <span th:text="${product.discount} + '%'"></span>
+                </p>
+            </div>
+            <div class="form-group">
+                <label for="status">Status</label>
+                <p id="status" class="form-control-static" th:text="${product.status == 1 ? 'Active' : 'Inactive'}">Status</p>
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <p id="category" class="form-control-static" th:text="${product.category.name}">Category Name</p>
+            </div>
+            <div class="form-group">
+                <input type="hidden" th:value="${product.productId}" name="productId"/>
+                <a class="btn btn-primary" th:href="@{'/shoppingCart/add/' + ${product.productId}}">Add to Cart</a>
+                <a th:href="@{/products/home}" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+      
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/dashboardLayout.html}">
+
+<head>
+
+</head>
+
+<body>
+   <section  layout:fragment="content">
+    <div class="col-6 offset-3 mt-4" th:if="${product != null}">
+        <form th:action="@{/admin/products/saveOrUpdate}" method="post" th:object="${product}" >
+            <div class="card">
+                <div class="card-header">
+                    <h2>Add New Product</h2>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="name">Name: </label>
+                        <input type="text" class="form-control" th:field="*{name}" id="name" aria-describedby="nameHid" placeholder="Product Name">
+                        <small th:if="${#fields.hasErrors('name')}" id="nameHid" class="form-text text-muted">Name is required</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity: </label>
+                        <input type="number" class="form-control" th:field="*{quantity}" id="quantity" aria-describedby="quantityHid" placeholder="Quantity">
+                        <small th:if="${#fields.hasErrors('quantity')}" id="quantityHid" class="form-text text-muted">Quantity is required</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="unitPrice">Unit Price: </label>
+                        <input type="number" step="0.01" class="form-control" th:field="*{unitPrice}" id="unitPrice" aria-describedby="unitPriceHid" placeholder="Unit Price">
+                        <small th:if="${#fields.hasErrors('unitPrice')}" id="unitPriceHid" class="form-text text-muted">Unit Price is required</small>
+                    </div>
+<!--                     <div class="form-group"> -->
+<!--                         <label for="imageUrl">Image URL: </label> -->
+<!--                         <input type="text" class="form-control" th:field="*{imageUrl}" id="imageUrl" aria-describedby="imageUrlHid" placeholder="Image URL"> -->
+<!--                         <small th:if="${#fields.hasErrors('imageUrl')}" id="imageUrlHid" class="form-text text-muted">Image URL is optional</small> -->
+<!--                     </div> -->
+					<div class="form-group">
+					    <label for="imageUrl">Image URL: </label>
+					    <input type="text" class="form-control" id="imageUrl" name="imageUrl" aria-describedby="imageUrlHelp" placeholder="Nhập đường dẫn URL của hình ảnh">
+					    <small id="imageUrlHelp" class="form-text text-muted">Nhập đường dẫn URL của hình ảnh từ internet.</small>
+					</div>
+
+					
+
+                    <div class="form-group">
+                        <label for="description">Description: </label>
+                        <textarea class="form-control" th:field="*{description}" id="description" aria-describedby="descriptionHid" placeholder="Description"></textarea>
+                        <small th:if="${#fields.hasErrors('description')}" id="descriptionHid" class="form-text text-muted">Description is required</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="discount">Discount: </label>
+                        <input type="number" step="0.01" class="form-control" th:field="*{discount}" id="discount" aria-describedby="discountHid" placeholder="Discount">
+                        <small th:if="${#fields.hasErrors('discount')}" id="discountHid" class="form-text text-muted">Discount is required</small>
+                    </div>
+<!--                     <div class="form-group"> -->
+<!--                         <label for="enteredDate">Entered Date: </label> -->
+<!--                         <input type="date" class="form-control" th:field="*{enteredDate}" id="enteredDate" aria-describedby="enteredDateHid" placeholder="Entered Date"> -->
+<!--                         <small th:if="${#fields.hasErrors('enteredDate')}" id="enteredDateHid" class="form-text text-muted">Entered Date is required</small> -->
+<!--                     </div> -->
+					
+                    <div class="form-group">
+                        <label for="status">Status: </label>
+                        <input type="number" class="form-control" th:field="*{status}" id="status" aria-describedby="statusHid" placeholder="Status">
+                        <small th:if="${#fields.hasErrors('status')}" id="statusHid" class="form-text text-muted">Status is required</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="categoryId">Category: </label>
+                        <select class="form-control" th:field="*{categoryId}" id="categoryId" aria-describedby="categoryIdHid">
+                            <option th:each="category : ${categories}" th:value="${category.categoryId}" th:text="${category.name}">Category Name</option>
+                        </select>
+                        <small th:if="${#fields.hasErrors('categoryId')}" id="categoryIdHid" class="form-text text-muted">Category is required</small>
+                    </div>
+                </div>
+                <div class="card-footer text-muted mb-2 ms-2">
+                    <button type="reset" class="btn btn-secondary"><i class="bi bi-arrow-clockwise"></i> Reset</button>
+                    <a th:href="@{/admin/products/searchpaginated}" class="btn btn-success"><i class="bi bi-list-columns-reverse"></i> List Products</a>
+                    <button class="btn btn-primary"><i class="bi bi-floppy2-fill"></i>
+                        <span th:if="${product.isEdit}">Update</span>
+                        <span th:unless="${product.isEdit}">Save</span>
+                    </button>
+                </div>
+            </div> 
+        </form>
+    </div>
+</section>
+
+
+
+      
+</body>
+
+</html>
